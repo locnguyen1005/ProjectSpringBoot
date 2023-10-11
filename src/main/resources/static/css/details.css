@@ -1,0 +1,55 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.movie-container {
+  display: flex;
+}
+
+.movie-image {
+  flex: 1;
+  margin-left: 500px;
+}
+
+.movie-details {
+  flex: 2;
+}
+
+.movie-details th,
+.movie-details td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.movie-details th {
+  background-color: #f0f0f0;
+  text-align: left;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.btn:active {
+  background-color: #3c903c;
+}

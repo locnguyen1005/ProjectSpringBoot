@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <th:block th:replace="~{layout :: link-css}"></th:block>
+    <style>
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f4f4f4;
+        }
+
+        .login-box h3 {
+            text-align: center;
+        }
+
+        .login-box fieldset {
+            border: none;
+            padding: 0;
+        }
+
+        .login-box .form-action {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-box .form-action a {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="login-box">
+                <h3>Đăng Nhập</h3>
+                <form th:action="@{/login}" method="post">
+                    <fieldset>
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            Không thấy tên và mật khẩu
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-danger">
+                            You have been logged out.
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Tên Đăng Nhập: </label>
+                            <input type="text" required class="form-control" id="username" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mật Khẩu:</label>
+                            <input type="password" required class="form-control" id="password" name="password">
+                        </div>
+
+                        <div class="d-grid gap-2 form-action">
+                            <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+                            <a class="text-primary text-center" href="/register">Không Có Tài Khoản? Đăng Ký Ngay</a>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

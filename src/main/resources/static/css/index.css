@@ -1,0 +1,51 @@
+
+
+.jumbotron {
+
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.jumbotron .display-4 {
+    animation: fadeInDown 1s ease;
+}
+
+.jumbotron .lead {
+    animation: fadeInUp 1s ease;
+    animation-delay: 0.5s;
+}
+
+.jumbotron .btn {
+    animation: fadeInUp 1s ease;
+    animation-delay: 1s;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

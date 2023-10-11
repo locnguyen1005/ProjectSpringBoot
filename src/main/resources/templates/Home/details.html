@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/details.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/css/index.css}" />
+  <title>Movie Details</title>
+</head>
+<th:block th:replace="layout::header"></th:block>
+
+<body style="background-color:#a972136b">
+<h1>Nội Dung Phim</h1>
+<hr>
+
+<div class="movie-container">
+  <div class="movie-image">
+    <img th:if="${movie.imagePath != null && !movie.imagePath.isEmpty()}" th:src="@{'/' + ${movie.imagePath}}" alt="Movie Image" height="350" />
+  </div>
+
+  <table class="movie-details">
+<!--    <tr>-->
+<!--      <th>ID</th>-->
+<!--      <td th:text="${movie.id}"></td>-->
+<!--    </tr>-->
+    <tr>
+      <th>Phim</th>
+      <td th:text="${movie.phim}"></td>
+    </tr>
+    <tr>
+      <th>Nhà sản xuất</th>
+      <td th:text="${movie.nhasanxuat}"></td>
+    </tr>
+    <tr>
+      <th>Giá Vé</th>
+      <td th:text="${movie.gia}"></td>
+    </tr>
+    <tr>
+      <th>Thể loại</th>
+      <td th:text="${movie.category.name}"></td>
+    </tr>
+  </table>
+</div>
+
+<div class="d-flex">
+  <form sec:authorize="hasAnyAuthority('ADMIN','USER')" action="/movies/add-to-cart" method="post" class="d-inline">
+    <input type="hidden" name="id" th:value="${movie.id}">
+    <input type="hidden" name="name" th:value="${movie.phim}">
+    <input type="hidden" name="price" th:value="${movie.gia}">
+    <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure you want to add this movie to cart?')">Thêm vào giỏ hàng</button>
+  </form>
+</div>
+
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+
+
+</html>

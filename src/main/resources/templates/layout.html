@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+        lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My App</title>
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand"  href="#">HTAV</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active"   aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('USER','ADMIN')">
+                        <a class="nav-link" href="/movies"><i class="fa fa-film" aria-hidden="true"></i> Danh Sách Phim Đang Chiếu</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                        <a class="nav-link" href="/movies/add"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm Phim</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN','USER')">
+                        <a class="nav-link" href="/send-email"><i class="fa fa-envelope"></i>Phản Hồi Người Dùng</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-outline-danger" type="submit">Log out</button>
+                        </form>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="btn btn-primary"  href="/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                    </li>
+                </ul>
+                <form class="d-flex" sec:authorize="hasAnyAuthority('USER')">
+                    <a class="btn btn-default btn" href="/cart">
+                        <i class="bi bi-cart-fill me-1"></i>
+                        Giỏ hàng
+                    </a>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<footer th:fragment="footer">
+        <hr>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Giới Thiệu</h4>
+                    <p>Rạp phim HATV xin cảm ơn qúy khách đã quan tâm theo dõi và ủng hộ rap phim, chúng tôi sẽ liên tục nâng cấp hệ thống để mang đến cho quý khác một trải nghiệm tại rạp được tốt nhất </p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Liên Hệ</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-map-marker"></i> 123 Đường Nguyễn Huệ , Quận 1, TP HCM</li>
+                        <li><i class="fa fa-phone"></i> (+84) 999-9999</li>
+                        <li><i class="fa fa-envelope"></i> HTAV_CINEMA@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Theo Dõi Chúng Tôi</h4>
+                    <ul class="list-unstyled social-network">
+                        <li> <a href="#" class="icon-link"><i class="fab fa-facebook-f"></i></a> facebook.com/HTAVCINEMA</li>
+                        <li><a href="#" class="icon-link"><i class="fab fa-twitter"></i></a> twitter.com/HTAVCINEMA</li>
+                        <li> <a href="#" class="icon-link"><i class="fab fa-instagram"></i></a> instagram.com/HTAVCINEMA</li>
+                    </ul>
+
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center">&copy; 2023 HTAV. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

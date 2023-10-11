@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách phim</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet"  text="text/css" th:href="@{/css/list.css}">
+</head>
+<body style="background-color:#a972136b">
+<div th:replace="layout ::header"></div>
+<div style="width:400px; margin-left: 1500px ">
+  <form class="d-flex" th:action="@{/movies/search}" method="get">
+    <input class="form-control me-2" type="search"
+           placeholder="Search" aria-label="Search" name="keyword">
+    <button class="btn btn-outline-success"
+            type="submit">Search</button>
+  </form>
+</div>
+
+<div class="container">
+  <h1 th:text="${title}"></h1>
+  <div class="movie-list">
+    <div th:each="movie : ${movies}" class="movie animate__animated animate__fadeIn">
+      <img th:if="${movie.imagePath != null && !movie.imagePath.isEmpty()}" th:src="@{/{imageName}(imageName=${movie.imagePath})}" alt="Movie Image">
+      <h2 class="movie-title" th:text="${movie.phim}"></h2>
+      <p class="movie-info">
+        <span>Đạo diễn: </span>
+        <span th:text="${movie.nhasanxuat}"></span> |
+        <span>Giá vé: </span>
+        <span th:text="${movie.gia}"></span> |
+        <span>Thể loại phim: </span>
+        <span th:text="${movie.category.name}"></span>
+
+      </p>
+      <div class="movie-actions" sec:authorize="hasAnyAuthority('ADMIN')">
+        <a class="btn" th:href="@{/movies/edit/{id}(id=${movie.id})}">Sửa</a>
+        <a class="btn" th:href="@{/movies/delete/{id}(id=${movie.id})}" onclick="deleteMovie(this); return false;">Xoá</a>
+      </div>
+      <form sec:authorize="hasAnyAuthority('USER')" th:action="@{/movies/add-to-cart}" method="post"
+            class="d-inline">
+        <input type="hidden" name="id" th:value="${movie.getId()}">
+        <input type="hidden" name="name"
+               th:value="${movie.getPhim()}">
+        <input type="hidden" name="price"
+               th:value="${movie.getGia()}">
+        <button type="submit" class="btn btn-success"
+                onclick="return confirm('Are you sure you want to add this movie to cart?')">
+          Add to cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script th:src="@{/js/jquery-3.6.4.min.js}"></script>
+<div th:replace="layout ::footer"></div>
+</body>
+</html>

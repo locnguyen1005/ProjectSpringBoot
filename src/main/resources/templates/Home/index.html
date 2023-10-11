@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rạp Phim HTAV</title>
+    <link rel="shortcut icon" href="./images/123.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <th:block th:replace="layout::link-css"></th:block>
+</head>
+<body style="background-color:#a972136b">
+<th:block th:replace="layout::header"></th:block>
+<div id="carouselExample" class="carousel slide" data-ride="carousel">
+    <!-- Slides -->
+    <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active" >
+            <div class="jumbotron text-center" style="background-image: url('./images/flash-web-banner.jpg');background-size: 1511px 370px; ">
+                <h1 class="display-4">Chào mừng đến với <span class="animated-text">Rạp Phim HTAV!</span></h1>
+                <p class="lead">Trải nghiệm những bộ phim bom tấn và hấp dẫn nhất.</p>
+                <a class="btn btn-primary btn-lg" href="/movies" role="button">Xem lịch chiếu</a>
+            </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item" >
+            <div class="jumbotron text-center" style="background-image: url('./images/sipderbanner.jpg');background-size: 1511px 370px;">
+                <h1 class="display-4">Chào mừng đến với <span class="animated-text">Rạp Phim HTAV!</span></h1>
+                <p class="lead">Trải nghiệm những bộ phim bom tấn và hấp dẫn nhất.</p>
+                <a class="btn btn-primary btn-lg" href="/movies" role="button">Xem lịch chiếu</a>
+
+            </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item" >
+            <div class="jumbotron text-center" style="background-image: url('./images/transformbanner.jpg');background-size: 1511px 370px;">
+                <h1 class="display-4">Chào mừng đến với <span class="animated-text">Rạp Phim HTAV!</span></h1>
+                <p class="lead">Trải nghiệm những bộ phim bom tấn và hấp dẫn nhất.</p>
+                <a class="btn btn-primary btn-lg" href="/movies" role="button">Xem lịch chiếu</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Controls -->
+    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<section class="py-5">
+    <div class="col-12 mb-4 text-center">
+        <h4 class="fw-bold">Phim Đang Chiếu</h4>
+    </div>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+            <div th:each="movie: ${movies}" class="col mb-5">
+                <div class="card h-100 w-55">
+
+                    <img th:if="${movie.imagePath != null && !movie.imagePath.isEmpty()}" th:src="@{/{imageName}(imageName=${movie.imagePath})}" alt="Movie Image" height="350" />
+
+
+                    <div class="card-body p-4">
+                        <div class="text-center">
+
+                            <h5 class="fw-bolder" th:text="${movie.phim}"></h5>
+
+                            Giá Vé:
+                            <span th:text="${movie.gia}" class="text-danger"></span>
+                            </br>
+                            Đạo Diễn:
+                            <span th:text="${movie.nhasanxuat}" class="text-default"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <a class="btn btn-outline-dark mt-auto" th:href="@{/details/{id}(id=${movie.id})}">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block th:replace="layout ::footer"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

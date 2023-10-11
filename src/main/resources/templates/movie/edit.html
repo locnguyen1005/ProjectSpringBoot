@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="layout :: link-css"></th:block>
+    <title>Sửa Phim </title>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1>Sửa Thông Tin Phim </h1>
+    <form th:action="@{/movies/edit}" th:object="${movie}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class = "col-6 mb-3">
+            <label class="form-label" for="phim">Tên Phim </label>
+            <input class="form-control" type ="text" th:field="*{phim}" id="phim">
+        </div>
+        <div class = "col-6 mb-3">
+            <label class="form-label" for="nhasanxuat">Nhà Sản Xuất </label>
+            <input class="form-control" type ="text" th:field="*{nhasanxuat}" id="nhasanxuat">
+        </div>
+        <div class = "col-6 mb-3">
+            <label class="form-label" for="gia">Giá Vé: </label>
+            <input class="form-control" type ="text" th:field="*{gia}" id="gia">
+        </div>
+        <div class = "col-6 mb-3">
+            <label class="form-label" for="category">Thể Loại Phim </label>
+            <select class="form-control" id="category" name="category.id">
+                <option value="">-- Select Category--</option>
+                <option th:each="category: ${categories}"th:value="${category.id}"
+                        th:text="${category.name}"></option>
+            </select>
+        </div>
+        <input type="submit"  value="Lưu">
+    </form>
+    <br>
+    <a th:href="@{/movies}">Back to List</a>
+</div>
+<th:block th:replace="layout:: footer"></th:block>
+</body>
+</html>
